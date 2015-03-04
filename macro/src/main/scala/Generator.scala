@@ -41,7 +41,6 @@ object tracerMacro {
               ..${
                    body.map {
                        case x@q"def $name (..$params): $typ = $body" =>
-                         println("name = " + name + " " + params)
                        q"""def $name (..$params): $typ = {
                              val nm = ${name.toString}
                              MacroLogger.in(nm + "(" + List(..${params map { case x@q"$param" => q"""  ${param.name.toString} + " = " + ${param.name}""" }}).mkString(", ") + ")")(this -> nm)
@@ -66,6 +65,3 @@ object tracerMacro {
   }
 }
 
-object Experiment extends App {
-
-}
