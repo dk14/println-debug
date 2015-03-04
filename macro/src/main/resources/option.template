@@ -1,0 +1,6 @@
+instrument {name} is Option
+exercise at {exerciseDate: Date} {automatic: String}
+  {optionsCount: Count} options with strike {strike: Money}
+  with {count: Count = one} underlyer
+  pay premium {premium: Money} from {partyFrom: Party} to {partyTo: Party} at {premiumDate: Date}
+
