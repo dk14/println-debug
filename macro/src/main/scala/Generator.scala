@@ -29,9 +29,7 @@ object MacroLogger {
 object tracerMacro {
 
   def impl(c: Context)(annottees: c.Expr[Any]*): c.Expr[Any] = {
-    import scala.io.Source
-    val grammarRaw = Source.fromURL(this.getClass.getResource("/option.template")).getLines().mkString("\n")
-
+    
     import c.universe._
     val inputs = annottees.map(_.tree).toList
 
@@ -64,7 +62,6 @@ object tracerMacro {
       case x => sys.error(x.toString)
     }
 
-    println(output)
     c.Expr[Any](output)
   }
 }
