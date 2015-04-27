@@ -26,6 +26,7 @@ object MacroLogger {
   def out(s: String)(implicit obj: (Any, String)) = { log(s); map.update(key, map(key) - 1)}
 }
 
+
 object tracerMacro {
 
   def impl(c: Context)(annottees: c.Expr[Any]*): c.Expr[Any] = {
@@ -43,7 +44,7 @@ object tracerMacro {
                        case x@q"def $name (..$params): $typ = $body" =>
                        q"""def $name (..$params): $typ = {
                              val nm = ${name.toString}
-                             MacroLogger.in(nm + "(" + List(..${params map { case x@q"$param" => q"""  ${param.name.toString} + " = " + ${param.name}""" }}).mkString(", ") + ")")(this -> nm)
+                             MacroLogger.in(nm + "(" + List(..${params map { case x@q"$mods val $name: $tpt" => q"""  ${name.toString} + " = " + ${newTermName(name.toString)}""" }}).mkString(", ") + ")")(this -> nm)
                              val res = try {
                                 val res = $body
                                 MacroLogger.out(nm + " = " + res.toString)(this -> nm)
