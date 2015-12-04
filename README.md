@@ -1,4 +1,4 @@
-# println-tracer
+# println-debug
 
 Usage:
 
